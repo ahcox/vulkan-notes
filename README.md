@@ -2,6 +2,7 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
 
 # Gnomes per second in Vulkan and OpenGL ES
 >>> August 10th, 2015
+
 http://blog.imgtec.com/powervr/gnomes-per-second-in-vulkan-and-opengl-es
 This article describes Imagination Technology's PowerVR Vulkan demo
 for SIGGRAPH 2015.
