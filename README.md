@@ -30,7 +30,7 @@ A video shows the demo but with no explanation: https://youtu.be/P_I8an8jXuM
 # Notes on API as it has Been Publicly Disclosed
 
 ## RenderPass
-[ [Disclosure of RenderPass](https://onedrive.live.com/redir?resid=2053FCB7E3D99729!124&authkey=!AN2LmaEK6rJB4yQ&ithint=file%2cpptx) ]
+[Disclosure of RenderPass: [Graham Sellers, AMD](https://onedrive.live.com/redir?resid=2053FCB7E3D99729!124&authkey=!AN2LmaEK6rJB4yQ&ithint=file%2cpptx); [Piers Daniell, NVIDIA](https://www.youtube.com/watch?v=NqensKmmRfE&t=29m15s)]
 
 I don't think the real motivation for this feature has been articulated yet in any of the videos, blogs, and slide decks made available [2015-11-02].
 The business of using on-chip memory for gbuffers could just as easily have been achieved with a flag on the object representing the framebuffer attachments saying `DONT_BACK_THIS_WITH_MEMORY`.
