@@ -52,3 +52,5 @@ I am looking forward to seeing some good information come out about this design,
 and finding out what I am missing.
 Hopefully it all hangs together and makes perfect sense.
 
+
+_[Link here](http://ahcox.com/vulkan/vulkan-notes/)._
