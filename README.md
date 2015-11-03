@@ -43,8 +43,11 @@ This _could_ lower latency to photons, and _could_ reduce the chance of the GPU 
 but then again, these advantages could just as easily have been achieved with a pair of commands
 to start and end rendering to a target explicitly, without all the subpass business.
 
+    // Setup framebuffer attachments with a DONT_BACK_THIS_WITH_MEMORY flag set on some.
+    // ...
     VkRenderPassBegin(cmdBuffer);
     // Draw things
+    // ...
     VkRenderPassEnd(cmdBuffer);
     // Driver goes off to bin some trianges and draw them.
  
