@@ -20,6 +20,59 @@ https://www.youtube.com/watch?v=4exq7Pb0XRo
 
 #### Thermal Budgets on a SOC
 * Desktop CPUs and get hot and need cooling, but mobile SOCs cannot get hot.
+* Vulkan reduces CPU workloads, even for homescreens and othe rsimple apps.
+* Less CPU give headroom for more GPU work in a given power budget.
+
+#### Power and Battery Life
+* Mobiles need batteries.
+* More work = more current.
+* Less work = longer battery life
+
+#### How Vulkan Achieves Better Efficiency
+* Not magic bullet. Naive port can be slower than DX11 / OpenGL.
+* Aras Prankevicius (Unity) found it hard to add next gen API support [_I have heard this too from DX12 game ports - Andy_].
+* Rewards can be great.
+* No error checking or validation in Vulkan.
+  * Errors are only useful to debug.
+  * Debug happens ahead of time.
+  * Old way in GL is like shipping a debug build of your game.
+  * Tooling layers handle all error checking on top of core API.
+    * Vulkan has a concept of API layers.   
+  * A layer can be incredibly slow, equivalent to running in Valgrind.
+* Avoids Haxard tracking and synchronization
+  * Old way, API view of an object can be modified while GPU is using it, and driver allocates and copies, and fences and syncs to make that work. This overhead always on even if the app is not modifying in-use resources.
+  * New way, it is all up to the app to track hazards.
+* **Pipeline Objects**
+  * Current way: blending state of GL and other _state_ gets turned into shader code which is patched into user shaders at runtime.
+    * Driver uses extra memory to cache combinations of fixed state and user shaders.
+  * New way bakes almost every piece of state up-front in pipeline state object.
+    * So drivers can compile that down to the most efficient form possible ahead of time.
+  * Curent GLES apps have state objects.
+    * Most apps should be able to supply this ahead of time instead of in the middle of a render.
+* **Command Buffer** reuse
+  * Commands recorded ahead and driver gets to analyse that buffer and optimise it once.  
+  * State can't change, resources (textures) can.
+  * Demo (interior scene from GDC)
+    * Only 2 command buffers used (+ one for UI maybe).
+      * Identical but using different uniform buffer bound for camera (Is this for double buffering?)
+* **Multithreading**
+  * Multiple cores at low frequency more efficient than one fast core. Vulkan enables this.
+  * Vk has better scaling than GLES: allows multiple cores to do work on API.
+  * In Gnomes demo.
+    * GLES maxing one core out, and bouncing thread between two cores to spread the heat.
+  * More in next talk on threading.
+* ** GPU Efficiency **
+  * More explicit.
+  * Earlier optimisation.
+  * Final talk will go into mapping to Imagination hardware.
+* **Conclusion**
+  * Significant overhead reduction.
+  * Gnome demo reduced workload to 33%, and total system load went down to 50%.
+  * Cache hits and misses and other details also thought about.
+  * Difficult to get going (Aras did not have a good time).
+  * Rewarding in the end though and you will see gains. 
+  * Questions via twitter welcome: https://twitter.com/tobskihectov
+  * 
 
 ## Gnomes per second in Vulkan and OpenGL ES
 > August 10th, 2015
