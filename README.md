@@ -55,7 +55,7 @@ This is both a video webinar and an accompanying blog post.
   * State can't change, resources (textures, uniforms, ...) can.
   * Demo (interior scene from GDC)
     * Only 2 command buffers used (+ one for UI maybe).
-      * Identical but using different uniform buffer bound for camera [_Why two identical? Is this for double buffering? -Andy_]
+      * Identical but using different uniform buffer bound for camera [_Clarification from Tobias: two identical command buffers are for double buffering: I guess while one is being slurped by the GPU, the other can have its camera matrix uniform updated safely. -Andy_]
 * **Multithreading**
   * Multiple cores at low frequency more efficient than one fast core. Vulkan enables this.
   * Vk has better scaling than GLES: allows multiple cores to do work on API.
