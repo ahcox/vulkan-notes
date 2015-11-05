@@ -7,8 +7,8 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
 > November 5th, 2015
 
 This is both a video webinar and an accompanying blog post. 
-* http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile
 * https://www.youtube.com/watch?v=4exq7Pb0XRo
+* http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile
 
 ### Notes on the video
 #### Intro
