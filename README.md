@@ -8,8 +8,8 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
 
 This is both a video webinar and an accompanying blog post.
 
-* https://www.youtube.com/watch?v=4exq7Pb0XRo
-* http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile
+* [https://www.youtube.com/watch?v=4exq7Pb0XRo](https://www.youtube.com/watch?v=4exq7Pb0XRo)
+* [http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile](http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile)
 
 ### Notes on the video
 #### Intro
@@ -79,11 +79,11 @@ This is both a video webinar and an accompanying blog post.
 ## Gnomes per second in Vulkan and OpenGL ES
 > August 10th, 2015
 
-http://blog.imgtec.com/powervr/gnomes-per-second-in-vulkan-and-opengl-es
+[http://blog.imgtec.com/powervr/gnomes-per-second-in-vulkan-and-opengl-es](http://blog.imgtec.com/powervr/gnomes-per-second-in-vulkan-and-opengl-es)
 
 This article describes Imagination Technology's PowerVR Vulkan demo
 for SIGGRAPH 2015.
-A video shows the demo but with no explanation: https://youtu.be/P_I8an8jXuM
+A [video](https://youtu.be/P_I8an8jXuM) exists that show the demo but with no explanation.
 
 ### Summary
 * Android on Intel Nexus Player, PowerVR G6430 GPU
@@ -98,7 +98,7 @@ A video shows the demo but with no explanation: https://youtu.be/P_I8an8jXuM
 * Vulkan RenderPass objects are used to exploit pixel local storage.
 
 ### Related Links
-* PowerVR Native SDK: https://github.com/powervr-graphics/Native_SDK
+* [PowerVR Native SDK](https://github.com/powervr-graphics/Native_SDK)
 
 # Notes on API as it has Been Publicly Disclosed
 
