@@ -20,34 +20,34 @@ https://www.youtube.com/watch?v=4exq7Pb0XRo
 
 #### Thermal Budgets on a SOC
 * Desktop CPUs and get hot and need cooling, but mobile SOCs cannot get hot.
-* Vulkan reduces CPU workloads, even for homescreens and othe rsimple apps.
-* Less CPU give headroom for more GPU work in a given power budget.
+* Vulkan reduces CPU workloads, even for homescreens and other simple apps.
+* Less CPU gives headroom for more GPU work in a given power budget.
 
 #### Power and Battery Life
 * Mobiles need batteries.
 * More work = more current.
-* Less work = longer battery life
+* Less work = longer battery life.
 
 #### How Vulkan Achieves Better Efficiency
 * Not magic bullet. Naive port can be slower than DX11 / OpenGL.
-* Aras Prankevicius (Unity) found it hard to add next gen API support [_I have heard this too from DX12 game ports - Andy_].
+* [Aras Pranckevičius](http://aras-p.info/blog/) (Unity) found it hard to add next gen API support [_I have heard this too from DX12 game ports - Andy_].
 * Rewards can be great.
 * No error checking or validation in Vulkan.
   * Errors are only useful to debug.
   * Debug happens ahead of time.
   * Old way in GL is like shipping a debug build of your game.
+  * Vulkan has a concept of API layers.   
   * Tooling layers handle all error checking on top of core API.
-    * Vulkan has a concept of API layers.   
-  * A layer can be incredibly slow, equivalent to running in Valgrind.
-* Avoids Haxard tracking and synchronization
-  * Old way, API view of an object can be modified while GPU is using it, and driver allocates and copies, and fences and syncs to make that work. This overhead always on even if the app is not modifying in-use resources.
-  * New way, it is all up to the app to track hazards.
+  * Because a layer doesn't have to happen in a release build, it can at the limit be incredibly slow, equivalent to running an app in Valgrind [_Say for an overnight stress test - Andy_].
+* Avoids Hazard tracking and synchronization
+  * In the old way, the API view of an object can be modified while the GPU is using it, and driver allocates and copies, and fences and syncs to make that work. This overhead is always present to some extent even if the app is not modifying in-use resources, just in case it is.
+  * In the new Vulkan way, it is all up to the app to track hazards.
 * **Pipeline Objects**
-  * Current way: blending state of GL and other _state_ gets turned into shader code which is patched into user shaders at runtime.
-    * Driver uses extra memory to cache combinations of fixed state and user shaders.
-  * New way bakes almost every piece of state up-front in pipeline state object.
+  * Current GL way: blending state of GL and other _state_ gets turned into shader code which is patched into user shaders at runtime.
+    * Driver uses extra memory to cache compiled combinations of code generated for this supposedly fixed state and user shaders.
+  * New Vulkan way bakes almost every piece of state up-front in pipeline state object.
     * So drivers can compile that down to the most efficient form possible ahead of time.
-  * Curent GLES apps have state objects.
+  * Curent GLES apps often have state objects.
     * Most apps should be able to supply this ahead of time instead of in the middle of a render.
 * **Command Buffer** reuse
   * Commands recorded ahead and driver gets to analyse that buffer and optimise it once.  
@@ -65,7 +65,8 @@ https://www.youtube.com/watch?v=4exq7Pb0XRo
   * More explicit.
   * Earlier optimisation.
   * Final talk will go into mapping to Imagination hardware.
-* **Conclusion**
+
+#### Conclusion
   * Significant overhead reduction.
   * Gnome demo reduced workload to 33%, and total system load went down to 50%.
   * Cache hits and misses and other details also thought about.
