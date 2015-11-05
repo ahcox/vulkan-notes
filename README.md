@@ -15,9 +15,9 @@ This is both a video webinar and an accompanying blog post.
 #### Intro
 * No new information.
 * CPU efficiency is the subject of the current talk, not GPU efficiency.
-* Sputtering frame
+* Stuttering frame
   * Driver overhead often the cause. 
-  * Low maximum nmber of draw calls in GLES.
+  * Low maximum number of draw calls in GLES.
 
 #### Thermal Budgets on a SOC
 * Desktop CPUs and get hot and need cooling, but mobile SOCs cannot get hot.
