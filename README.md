@@ -3,7 +3,7 @@
 
 Time-ordered notes on Vulkan articles and videos, with the newest on top.
 
-## Vulkan: High efficiency on mobile
+## Vulkan: High efficiency on mobile <a id="vulkan_High_efficiency_on_mobile_video"></a>
 > November 5th, 2015
 
 This is both a video webinar and an accompanying blog post. 
@@ -61,7 +61,7 @@ https://www.youtube.com/watch?v=4exq7Pb0XRo
   * In Gnomes demo.
     * GLES maxing one core out, and bouncing thread between two cores to spread the heat.
   * More in next talk on threading.
-* ** GPU Efficiency **
+* **GPU Efficiency**
   * More explicit.
   * Earlier optimisation.
   * Final talk will go into mapping to Imagination hardware.
