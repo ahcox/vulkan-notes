@@ -6,7 +6,8 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
 ## Vulkan: High efficiency on mobile <a id="vulkan_High_efficiency_on_mobile_video"></a>
 > November 5th, 2015
 
-This is both a video webinar and an accompanying blog post. 
+This is both a video webinar and an accompanying blog post.
+
 * https://www.youtube.com/watch?v=4exq7Pb0XRo
 * http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile
 
