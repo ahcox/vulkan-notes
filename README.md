@@ -51,29 +51,29 @@ https://www.youtube.com/watch?v=4exq7Pb0XRo
     * Most apps should be able to supply this ahead of time instead of in the middle of a render.
 * **Command Buffer** reuse
   * Commands recorded ahead and driver gets to analyse that buffer and optimise it once.  
-  * State can't change, resources (textures) can.
+  * State can't change, resources (textures, uniforms, ...) can.
   * Demo (interior scene from GDC)
     * Only 2 command buffers used (+ one for UI maybe).
-      * Identical but using different uniform buffer bound for camera (Is this for double buffering?)
+      * Identical but using different uniform buffer bound for camera [_Why two identical? Is this for double buffering? -Andy_]
 * **Multithreading**
   * Multiple cores at low frequency more efficient than one fast core. Vulkan enables this.
   * Vk has better scaling than GLES: allows multiple cores to do work on API.
   * In Gnomes demo.
-    * GLES maxing one core out, and bouncing thread between two cores to spread the heat.
+      * GLES maxing one core out, and bouncing thread between two cores to spread the heat.
+      * Vulkan speading the laod over all cores.
   * More in next talk on threading.
 * **GPU Efficiency**
-  * More explicit.
-  * Earlier optimisation.
-  * Final talk will go into mapping to Imagination hardware.
+  * Vulkan is more explicit.
+  * Vulkan allows earlier optimisation.
+  * Final talk will go into mapping Vulkan concepts to Imagination hardware.
 
 #### Conclusion
   * Significant overhead reduction.
   * Gnome demo reduced workload to 33%, and total system load went down to 50%.
-  * Cache hits and misses and other details also thought about.
+  * Cache hits and misses and other details also thought about by Khronos WG when designing Vulkan.
   * Difficult to get going (Aras did not have a good time).
   * Rewarding in the end though and you will see gains. 
-  * Questions via twitter welcome: https://twitter.com/tobskihectov
-  * 
+  * Questions via [twitter](https://twitter.com/tobskihectov) welcome.
 
 ## Gnomes per second in Vulkan and OpenGL ES
 > August 10th, 2015
