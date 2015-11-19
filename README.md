@@ -42,62 +42,57 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
     * On order of four hundred thousand draw calls each frame.
       * ~250k of these are temporally coherent: reused from previous frame.
       * ~150k are brand new.
-      * In GLES there is 
-        one core maxed-out.
+      * In GLES there is one core maxed-out.
       * When we speed up the movement of the camera so there is lots
         of dymanic buffer creation,
         if we only had one core,
         Vullkan would get stuck like GLES does maxing out one core.
-        Because Vulkan lets command buffers be created on multiple core,
+        Because Vulkan lets command buffers be created on multiple cores,
         the FPS stays fairly high. 
 
 #### Vulkan Mechanisms for scaling
 * Nothing magical, just good solid engineering.
 * Vulkan gives lots of mechanisms for scaling.
 * Not doing magic in background on different threads.
-* Vulkan puts you in charge of what threads
-* No Global State
+* Vulkan puts you in charge of what threads do what work.
+* **No Global State**
   * GLES required thread local storage.
-    * Lookup on every function call. Lots of cache misses.
-  * Vulkan requires getting a instance
-    * There is no context: all state related to a call is in the arguments to it.
-* External Synchronization
-  * GLES makes all functions safe from all thread.
+    * Lookup in TLS on every function call. Lots of cache misses and indirections.
+  * Vulkan requires getting an instance object to start to talk to it.
+    * There is no implicit context: all state related to a call is in the arguments to it.
+* **External Synchronization**
+  * GLES makes all functions safe from all threads.
     * Adds lots of locks internally to make this work.
-    * Locks an be expensive even if 
-  * Vulkan does not lock on modification.
+    * Locks can be expensive on some platforms/architectures even if not causing a wait. 
+  * Vulkan does not lock on modification of internal state.
     * E.g., if you wanted to reset a command buffer, you could cause all sorts of problems if it was in use. Up to you to sync.
   * Upshot: no locking in driver, you rarely lock, better scaling, better perf.
-
-* Multithreaded command generation
+* **Multithreaded command generation**
   * GLES:
-    * No separation of generation and submission.
+    * No separation of work generation and submission.
     * As submission is on single thread, generation gets stuck on one thread too.
   * Vulkan:
     * Command buffers allow work generation on multiple threads ahead of time.
     * Submission on one thread is cheap.
     * Submission onto command queue: not accessible to multiple threads.
-    * We expose as many queues as the GPU has frontends fr work submission.
-
-* Command buffers require memory.
-  * Involves dynamic allocation as buffer size is not know ahead.
+    * We expose as many queues as the GPU has frontends for work submission (in theory).
+* **Command buffers require memory**
+  * Involves dynamic allocation as buffer size is not known ahead.
   * Command buffer reset allows reuse of underlying memory.
     * If buffer grows second time used, there is still dynamic alloc.
-  * After a while examples were using to much memory as high water mark in each command buffer would rise individually.
+  * During development of spec, after a while examples that did command buffer reset were using too much memory as the high water mark in each command buffer would rise individually.
     * Solution = command pools.
       * Group command buffers together.
-      * That pool will grow to max work done on one thread, but each buffer stays tight.
+      * That pool's memory will grow to max requirement  on one thread, but each individual buffer stays tight.
 
-* Conclusion
-  * We thought hard about scaling
+#### Conclusion
+  * We thought hard about scaling.
 
 #### Questions
-
   * Certification / Conformance:
     * Not ratified, no conformance tests, no spec, but plan to have tests.
     * Implementors cannot claim to support API without passing conformance testing.
     * There will hopefully bit quite a bit of that.
-
 
 
 ## Vulkan: High efficiency on mobile <a id="vulkan_High_efficiency_on_mobile_video"></a>
