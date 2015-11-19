@@ -30,8 +30,8 @@ Time-ordered notes on Vulkan articles and videos, with the newest on top.
 * Why do you want to se all the cores?
   * If you can scale workloads over all cores, you can get more efficiency.
   * More efficient for power to run many cores at a low clock rate than one at a high clock rate.
-    * Better battery life
-    * Less heat.
+      * Better battery life
+      * Less heat.
   * Want linear progression of scaling without spending all time synching.
 * Gnome Demo
   * Uses 2D uniform grid of square cells ("tiles").
