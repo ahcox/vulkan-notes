@@ -3,6 +3,103 @@
 
 Time-ordered notes on Vulkan articles and videos, with the newest on top.
 
+## Vulkan: Scaling to multiple threads video <a id="vulkan_Scaling_to_multiple_threads_video"></a>
+> November 19th, 2015
+
+* [Watch on YouTube](https://www.youtube.com/watch?v=s3ub6iVThro&t=2m35s)
+
+### Notes on the video
+
+#### Introduction
+
+* Tobias, in IMG dev tech for 5 years.
+* No new information in this talk.
+* Subject will be about scaling to multiple threads.
+
+#### GPU Waiting on the CPU?
+
+* Talked last time about how API inefficiencies can slow things down on CPU.
+* Another side to that...
+* Multi-core CPUs
+  * GLES is stuck with a single thread.
+  * In a 4 core CPU, GLES only uses 1 at a time.
+  * Stop-gap solutions for special cases like background loading resources and post processing effects dont really scale.
+
+#### Making use of all the cores
+
+* Why do you want to se all the cores?
+  * If you can scale workloads over all cores, you can get more efficiency.
+  * More efficient for power to run many cores at a low clock rate than one at a high clock rate.
+    * Better battery life
+    * Less heat.
+  * Want linear progression of scaling without spending all time synching.
+* Gnome Demo
+  * Uses 2D uniform grid of square cells ("tiles").
+  * Each cell is frustum culled and streamed as they come on-screen.
+    * In GLES a cell just produces a batch of drawcalls.
+    * In Vulkan they are individual command buffers.
+  * In zoomed-out view a lot of these cells are created and destroyed each frame.
+    * On order of four hundred thousand draw calls each frame.
+      * ~250k of these are temporally coherent: reused from previous frame.
+      * ~150k are brand new.
+      * In GLES there is 
+        one core maxed-out.
+      * When we speed up the movement of the camera so there is lots
+        of dymanic buffer creation,
+        if we only had one core,
+        Vullkan would get stuck like GLES does maxing out one core.
+        Because Vulkan lets command buffers be created on multiple core,
+        the FPS stays fairly high. 
+
+#### Vulkan Mechanisms for scaling
+* Nothing magical, just good solid engineering.
+* Vulkan gives lots of mechanisms for scaling.
+* Not doing magic in background on different threads.
+* Vulkan puts you in charge of what threads
+* No Global State
+  * GLES required thread local storage.
+    * Lookup on every function call. Lots of cache misses.
+  * Vulkan requires getting a instance
+    * There is no context: all state related to a call is in the arguments to it.
+* External Synchronization
+  * GLES makes all functions safe from all thread.
+    * Adds lots of locks internally to make this work.
+    * Locks an be expensive even if 
+  * Vulkan does not lock on modification.
+    * E.g., if you wanted to reset a command buffer, you could cause all sorts of problems if it was in use. Up to you to sync.
+  * Upshot: no locking in driver, you rarely lock, better scaling, better perf.
+
+* Multithreaded command generation
+  * GLES:
+    * No separation of generation and submission.
+    * As submission is on single thread, generation gets stuck on one thread too.
+  * Vulkan:
+    * Command buffers allow work generation on multiple threads ahead of time.
+    * Submission on one thread is cheap.
+    * Submission onto command queue: not accessible to multiple threads.
+    * We expose as many queues as the GPU has frontends fr work submission.
+
+* Command buffers require memory.
+  * Involves dynamic allocation as buffer size is not know ahead.
+  * Command buffer reset allows reuse of underlying memory.
+    * If buffer grows second time used, there is still dynamic alloc.
+  * After a while examples were using to much memory as high water mark in each command buffer would rise individually.
+    * Solution = command pools.
+      * Group command buffers together.
+      * That pool will grow to max work done on one thread, but each buffer stays tight.
+
+* Conclusion
+  * We thought hard about scaling
+
+#### Questions
+
+  * Certification / Conformance:
+    * Not ratified, no conformance tests, no spec, but plan to have tests.
+    * Implementors cannot claim to support API without passing conformance testing.
+    * There will hopefully bit quite a bit of that.
+
+
+
 ## Vulkan: High efficiency on mobile <a id="vulkan_High_efficiency_on_mobile_video"></a>
 > November 5th, 2015
 
@@ -12,7 +109,7 @@ This is both a video webinar and an accompanying blog post.
 * [http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile](http://blog.imgtec.com/powervr/vulkan-high-efficiency-on-mobile)
 
 ### Notes on the video
-#### Intro
+#### Introduction
 * No new information.
 * CPU efficiency is the subject of the current talk, not GPU efficiency.
 * Stuttering frame
